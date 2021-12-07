@@ -36,12 +36,6 @@ public class WorkResource {
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Worker> findAll(@PathVariable Long id) {
 		
-		try {
-			Thread.sleep(3000L);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 		log.info("Port: " + env.getProperty("local.server.port"));
 		
