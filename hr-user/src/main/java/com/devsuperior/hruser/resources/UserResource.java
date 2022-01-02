@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.devsuperior.hruser.entities.User;
+import com.devsuperior.hruser.exception.ResourceNotFoundException;
 import com.devsuperior.hruser.repositories.UserRepository;
 
 @RefreshScope
@@ -27,11 +28,11 @@ public class UserResource {
 	}
 	
 	@GetMapping(value = "/search")
-	public ResponseEntity<User> findByEmail(@RequestParam String email) {
+	public ResponseEntity<User> findByEmail(@RequestParam String email) throws ResourceNotFoundException {
 		User user = repository.findByEmail(email);
 		
 		if(user == null) {
-			return (ResponseEntity<User>) ResponseEntity.notFound();
+			throw new ResourceNotFoundException("Nenhum usuario encontrado para o email = " + email);
 		}
 		
 		return ResponseEntity.ok(user);
